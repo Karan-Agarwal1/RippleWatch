@@ -1,5 +1,5 @@
 import React from "react";
-import { RadarIcon, SparklesIcon, RefreshCwIcon, DatabaseIcon } from "./Icons";
+import { RadarIcon, SparklesIcon, RefreshCwIcon } from "./Icons";
 import { AppStatusResponse } from "../lib/types";
 
 interface HeaderProps {
@@ -99,9 +99,11 @@ export function Header({
 
             {/* SerpApi Status Pill */}
             <div className="hidden lg:flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-slate-900/80 border border-slate-800 text-[11px]">
-              <span className={`w-2 h-2 rounded-full ${status?.serpapi_configured ? "bg-emerald-400 shadow-sm shadow-emerald-400" : "bg-rose-400"}`} />
+              <span className={`w-2 h-2 rounded-full ${status?.serpapi_configured ? "bg-emerald-400 shadow-sm shadow-emerald-400" : "bg-amber-400"}`} />
               <span className="text-slate-300">SerpApi:</span>
-              <span className="font-semibold text-emerald-400">Connected</span>
+              <span className={`font-semibold ${status?.serpapi_configured ? "text-emerald-400" : "text-amber-400"}`}>
+                {status?.serpapi_configured ? "Connected" : "Demo / Key Needed"}
+              </span>
             </div>
 
             {/* Gemini LLM Status Pill */}
