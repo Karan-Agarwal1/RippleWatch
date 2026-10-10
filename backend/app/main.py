@@ -41,6 +41,9 @@ app = FastAPI(
     lifespan=lifespan
 )
 
+from fastapi.responses import HTMLResponse
+from app.web_ui import get_dashboard_html
+
 # CORS Middleware (permits Next.js frontend local dev on 3000 or custom ports)
 app.add_middleware(
     CORSMiddleware,
@@ -49,6 +52,13 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+@app.get("/", response_class=HTMLResponse)
+async def serve_dashboard():
+    """
+    Renders the interactive RippleWatch dashboard.
+    """
+    return HTMLResponse(content=get_dashboard_html())
 
 @app.get("/api/status", response_model=AppStatusResponse)
 async def get_system_status():
